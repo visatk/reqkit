@@ -1,0 +1,41 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "reqkit",
+	"main": ".open-next/worker.js",
+	"compatibility_date": "2026-02-25",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".open-next/assets"
+	},
+	"images": {
+		// Enable image optimization
+		// see https://opennext.js.org/cloudflare/howtos/image
+		"binding": "IMAGES"
+	},
+	"services": [
+		{
+			// Self-reference service binding, the service name must match the worker name
+			// see https://opennext.js.org/cloudflare/caching
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "reqkit"
+		}
+	],
+	"d1_databases": [
+        {
+            "binding": "DB",
+            "database_name": "YOUR_DB_NAME",
+            "database_id": "YOUR_DB_ID",
+            "migrations_dir": "drizzle/migrations"
+        }
+    ],
+	"placement": {
+    "mode": "smart",
+  },
+	"observability": {
+		"enabled": true
+	}
+}
